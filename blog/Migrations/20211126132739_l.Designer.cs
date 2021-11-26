@@ -110,7 +110,7 @@ namespace blog.Migrations
                     b.HasOne("blog.Entities.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
@@ -121,7 +121,7 @@ namespace blog.Migrations
                     b.HasOne("blog.Entities.Post", "Post")
                         .WithMany("Medias")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
