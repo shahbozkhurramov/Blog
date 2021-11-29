@@ -15,10 +15,5 @@ namespace blog.Entities
         [Required]
         [MaxLength(5 * 1024 * 1024)]
         public byte[] Data { get; set; }
-        
-        [Required]
-        public Guid PostId { get; set; }
-
-        public Post Post { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using blog.Data;
 namespace blog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20211126132739_l")]
+    [Migration("20211127123011_l")]
     partial class l
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,7 @@ namespace blog.Migrations
                         .HasMaxLength(5242880)
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<Guid>("PostId")
+                    b.Property<Guid?>("PostId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -107,24 +107,18 @@ namespace blog.Migrations
 
             modelBuilder.Entity("blog.Entities.Comment", b =>
                 {
-                    b.HasOne("blog.Entities.Post", "Post")
+                    b.HasOne("blog.Entities.Post", null)
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("blog.Entities.Media", b =>
                 {
-                    b.HasOne("blog.Entities.Post", "Post")
+                    b.HasOne("blog.Entities.Post", null)
                         .WithMany("Medias")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
+                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("blog.Entities.Post", b =>

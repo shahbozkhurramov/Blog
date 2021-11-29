@@ -15,7 +15,5 @@ namespace blog.Models
 
         [Required]
         public Guid PostId { get; set; }
-        
-        public PostModel PostModel { get; set; }  
     }
 }

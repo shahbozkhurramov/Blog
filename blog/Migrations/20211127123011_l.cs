@@ -53,7 +53,7 @@ namespace blog.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ContentType = table.Column<string>(type: "nvarchar(55)", maxLength: 55, nullable: true),
                     Data = table.Column<byte[]>(type: "varbinary(max)", maxLength: 5242880, nullable: false),
-                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -63,7 +63,7 @@ namespace blog.Migrations
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using blog.Data;
 using blog.Entities;
@@ -42,9 +43,12 @@ namespace blog.Services
                 .ToListAsync();
 
         public Task<List<Post>> GetAllAsync(string title)
-        {
-            throw new NotImplementedException();
-        }
+            => _ctx.Posts
+                .AsNoTracking()
+                .Where(a => a.Title == title)
+                .Include(m => m.Comments)
+                .Include(m => m.Medias)
+                .ToListAsync();
 
         public Task<Post> GetAsync(Guid id)
             => _ctx.Posts.FirstOrDefaultAsync(p => p.Id == id);

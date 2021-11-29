@@ -18,13 +18,13 @@ namespace blog.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Comment>()
-                .HasOne(e => e.Post)
-                .WithMany(c => c.Comments);
-                
-            modelBuilder.Entity<Media>()
-                .HasOne(e => e.Post)
-                .WithMany(c => c.Medias);
+            // modelBuilder.Entity<Comment>()
+            //     .HasOne(e => e.Post)
+            //     .WithMany(c => c.Comments);
+
+            // modelBuilder.Entity<Media>()
+            //     .HasOne(e => e.Post)
+            //     .WithMany(c => c.Medias);
         }
     }
 }
