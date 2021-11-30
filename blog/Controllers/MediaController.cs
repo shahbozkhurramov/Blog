@@ -27,7 +27,7 @@ namespace blog.Controllers
             var result = await _ms.CreateAsync(mediaModel.ToEntityMapper());
             if(result.IsSuccess)
             {
-                return Ok(mediaModel.ToEntityMapper());
+                return Ok(mediaModel);
             }
             return BadRequest(result.Exception.Message);
         }
@@ -41,10 +41,18 @@ namespace blog.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetIdAsync(Guid id)
+        public async Task<IActionResult> GetIdAsync([FromRoute]Guid id)
         {
-            var result = await _ms.GetAsync(id);
-            return Ok(result.Id);
+            if(await _ms.ExistsAsync(id))
+            {
+                var result = await _ms.GetAsync(id);
+                var stream = new MemoryStream(result.Data);
+                return File(stream, result.ContentType);
+            }
+            else
+            {
+                return NotFound("Media does not exist!");
+            }
         }
 
         [HttpDelete]

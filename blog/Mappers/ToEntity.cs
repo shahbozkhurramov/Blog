@@ -26,7 +26,7 @@ namespace blog.Mappers
             => new Entities.Media()
             {
                 Id = Guid.NewGuid(),
-                ContentType = mediaModel.ContentType,
+                ContentType = mediaModel.Data.ContentType,
                 Data = ToByte(mediaModel.Data)
             };
 
