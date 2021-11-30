@@ -11,7 +11,6 @@ namespace blog.Models
         public string ContentType { get; set; }
 
         [Required]
-        [MaxLength(5 * 1024 * 1024)]
         public IFormFile Data { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using blog.Data;
 using blog.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace blog.Services
 {
@@ -24,6 +26,30 @@ namespace blog.Services
             catch(Exception e)
             {
                 return (false, e, null);
+            }
+        }
+
+        public Task<bool> ExistsAsync(Guid id)
+            => _ctx.Medias.AnyAsync(m => m.Id == id);
+
+        public Task<List<Media>> GetAllAsync()
+            => _ctx.Medias.ToListAsync();
+
+        public Task<Media> GetAsync(Guid id)
+            => _ctx.Medias.FirstOrDefaultAsync(m => m.Id == id);
+
+        public async Task<(bool IsSuccess, Exception Exception)> DeleteAsync(Guid id)
+        {
+            try
+            {
+                var media = await GetAsync(id);
+                _ctx.Medias.Remove(media);
+                await _ctx.SaveChangesAsync();
+                return (true, null);
+            }
+            catch(Exception e)
+            {
+                return (false, e);
             }
         }
     }

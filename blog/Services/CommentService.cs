@@ -39,9 +39,31 @@ namespace blog.Services
         public Task<Comment> GetAsync(Guid id)
             => _ctx.Comments.FirstOrDefaultAsync(c => c.Id == id);
 
-        public Task<(bool IsSuccess, Exception Exception)> DeleteAsync(Guid id)
+        public async Task<(bool IsSuccess, Exception Exception)> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var comment = await GetAsync(id);
+                _ctx.Comments.Remove(comment);
+                await _ctx.SaveChangesAsync();
+                return (true, null);
+            }
+            catch(Exception e)
+            {
+                return (false, e);
+            }
+        }
+
+        public async Task<(bool IsSuccess, Exception Exception, Comment Comment)> UpdateActorAsync(Comment comment)
+        {
+            if(!await ExistsAsync(comment.Id))
+            {
+                return (false, new ArgumentException("nothing"), null);
+            }
+
+            _ctx.Comments.Update(comment);
+            await _ctx.SaveChangesAsync();
+            return (true, null, comment);
         }
     }
 }

@@ -27,23 +27,43 @@ namespace blog.Controllers
             var result = await _ms.CreateAsync(mediaModel.ToEntityMapper());
             if(result.IsSuccess)
             {
-                return Ok(mediaModel);
+                return Ok(mediaModel.ToEntityMapper());
             }
             return BadRequest(result.Exception.Message);
         }
 
-        private Media GetImageEntity(IFormFile file)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync()
         {
-            using var stream = new MemoryStream();
+            var result = await _ms.GetAllAsync();
+            return Ok(result);
+        }
 
-            file.CopyTo(stream);
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetIdAsync(Guid id)
+        {
+            var result = await _ms.GetAsync(id);
+            return Ok(result.Id);
+        }
 
-            return new Media()
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            try
             {
-                Id = Guid.NewGuid(),
-                ContentType = file.ContentType,
-                Data = stream.ToArray()
-            };
+                var deletedResult = await _ms.DeleteAsync(id);
+                
+                if(deletedResult.IsSuccess)
+                {
+                    return Ok();
+                }
+                return BadRequest(deletedResult.Exception.Message);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

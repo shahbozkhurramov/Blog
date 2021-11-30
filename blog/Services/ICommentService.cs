@@ -12,5 +12,6 @@ namespace blog.Services
         Task<List<Comment>> GetAllAsync();
         Task<Comment> GetAsync(Guid id);
         Task<(bool IsSuccess, Exception Exception)> DeleteAsync(Guid id);
+        Task<(bool IsSuccess, Exception Exception, Comment Comment)> UpdateActorAsync(Comment comment);
     }
 }
