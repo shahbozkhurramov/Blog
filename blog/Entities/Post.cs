@@ -22,7 +22,7 @@ namespace blog.Entities
         [MaxLength(50000)]
         public string Content { get; set; }
         
-        public int Viewed { get; set; } = 0;
+        public int Viewed { get; set; }
         
         public DateTimeOffset CreatedAt { get; set; }
 

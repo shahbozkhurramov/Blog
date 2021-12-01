@@ -108,7 +108,7 @@ namespace blog.Migrations
                     b.HasOne("blog.Entities.Post", null)
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -116,7 +116,9 @@ namespace blog.Migrations
                 {
                     b.HasOne("blog.Entities.Post", null)
                         .WithMany("Medias")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("blog.Entities.Post", b =>

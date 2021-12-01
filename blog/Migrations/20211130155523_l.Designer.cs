@@ -10,7 +10,7 @@ using blog.Data;
 namespace blog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20211127123011_l")]
+    [Migration("20211130155523_l")]
     partial class l
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,7 +110,7 @@ namespace blog.Migrations
                     b.HasOne("blog.Entities.Post", null)
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -118,7 +118,9 @@ namespace blog.Migrations
                 {
                     b.HasOne("blog.Entities.Post", null)
                         .WithMany("Medias")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("blog.Entities.Post", b =>

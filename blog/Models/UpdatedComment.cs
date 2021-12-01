@@ -5,17 +5,11 @@ using System.Text.Json.Serialization;
 
 namespace blog.Models
 {
-    public class CommentModel
+    public class UpdatedComment
     {   
-        [MaxLength(255)]
-        public string Author { get; set; }
-        
         public string Content { get; set; }
         
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public StateEnum? State { get; set; }
-
-        [Required]
-        public Guid PostId { get; set; }
     }
 }

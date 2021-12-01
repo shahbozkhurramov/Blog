@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace blog.Models
 {
-    public class PostModel
+    public class UpdatedPost
     {
         public Guid HeaderImageId { get; set; }
 
@@ -18,8 +18,7 @@ namespace blog.Models
         
         [MaxLength(50000)]
         public string Content { get; set; }
-        
-        public IEnumerable<Guid> MediaIds { get; set; } 
+    
+        public IEnumerable<Guid> MediaIds { get; set; }
     }
-
 }

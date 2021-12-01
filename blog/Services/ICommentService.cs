@@ -9,9 +9,8 @@ namespace blog.Services
     {
         Task<(bool IsSuccess, Exception Exception, Comment Comment)> CreateAsync(Comment comment);
         Task<bool> ExistsAsync(Guid id);
-        Task<List<Comment>> GetAllAsync();
+        Task<List<Comment>> GetAllAsync(Guid id);
         Task<Comment> GetAsync(Guid id);
         Task<(bool IsSuccess, Exception Exception)> DeleteAsync(Guid id);
-        Task<(bool IsSuccess, Exception Exception, Comment Comment)> UpdateActorAsync(Comment comment);
     }
 }

@@ -27,7 +27,7 @@ namespace blog.Controllers
             var result = await _ms.CreateAsync(mediaModel.ToEntityMapper());
             if(result.IsSuccess)
             {
-                return Ok(mediaModel);
+                return Ok(result.Media);
             }
             return BadRequest(result.Exception.Message);
         }
@@ -58,20 +58,8 @@ namespace blog.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            try
-            {
-                var deletedResult = await _ms.DeleteAsync(id);
-                
-                if(deletedResult.IsSuccess)
-                {
-                    return Ok();
-                }
-                return BadRequest(deletedResult.Exception.Message);
-            }
-            catch(Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            var deletedResult = await _ms.DeleteAsync(id);
+            return Ok(deletedResult);
         }
     }
 }

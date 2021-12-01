@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using blog.Data;
 using blog.Entities;
@@ -33,8 +34,8 @@ namespace blog.Services
         public Task<bool> ExistsAsync(Guid id)
             => _ctx.Comments.AnyAsync(c => c.Id == id);
 
-        public Task<List<Comment>> GetAllAsync()
-            => _ctx.Comments.ToListAsync();
+        public Task<List<Comment>> GetAllAsync(Guid id)
+            => _ctx.Comments.Where(m => m.PostId == id).ToListAsync();
 
         public Task<Comment> GetAsync(Guid id)
             => _ctx.Comments.FirstOrDefaultAsync(c => c.Id == id);
@@ -52,18 +53,6 @@ namespace blog.Services
             {
                 return (false, e);
             }
-        }
-
-        public async Task<(bool IsSuccess, Exception Exception, Comment Comment)> UpdateActorAsync(Comment comment)
-        {
-            if(!await ExistsAsync(comment.Id))
-            {
-                return (false, new ArgumentException("nothing"), null);
-            }
-
-            _ctx.Comments.Update(comment);
-            await _ctx.SaveChangesAsync();
-            return (true, null, comment);
         }
     }
 }
