@@ -63,32 +63,28 @@ namespace blog.Services
         {
             try
             {
-                try
+                if(post.Medias!=null)
                 {
-                    var medias = post.Medias.ToList();
-                    
+                    var medias = post.Medias.ToList();                
                     foreach(var media in medias)
                     {
                         _ctx.Medias.Remove(media);
                         await _ctx.SaveChangesAsync();
                     }
-
+                }
+                if(post.Comments!=null)
+                {
                     var comments = post.Comments.ToList();
                     foreach(var comment in comments)
                     {
                         _ctx.Comments.Remove(comment);
                         await _ctx.SaveChangesAsync();
                     }
-                    _ctx.Posts.Remove(post);
-                    await _ctx.SaveChangesAsync();
-                    return (true, null);
                 }
-                catch
-                {
-                    _ctx.Posts.Remove(post);
-                    await _ctx.SaveChangesAsync();
-                    return (true, null);
-                }
+                var res = _ctx.Posts.FirstOrDefault(p => p.Id == id);
+                _ctx.Posts.Remove(res);
+                await _ctx.SaveChangesAsync();
+                return (true, null);
             }
             catch(Exception e)
             {
