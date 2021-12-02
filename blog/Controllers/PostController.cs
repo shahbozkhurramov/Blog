@@ -50,6 +50,8 @@ namespace blog.Controllers
         public async Task<IActionResult> GetIdAsync([FromRoute]Guid id)
         {
             var result = await _ps.GetAsync(id);
+            result.Viewed +=1;
+            await _ps.UpdateAsync(result);
             return Ok(result);
         }
 
