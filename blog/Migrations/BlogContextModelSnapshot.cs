@@ -126,6 +126,8 @@ namespace blog.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Medias");
+
+                    
                 });
 #pragma warning restore 612, 618
         }

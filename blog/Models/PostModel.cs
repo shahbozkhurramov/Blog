@@ -2,12 +2,13 @@ using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace blog.Models
 {
     public class PostModel
     {
-        public Guid HeaderImageId { get; set; }
+        public Guid? HeaderImageId { get; set; }
 
         [Required]
         [MaxLength(255)]

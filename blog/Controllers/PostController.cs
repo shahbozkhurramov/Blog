@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -29,7 +30,6 @@ namespace blog.Controllers
         public async Task<IActionResult> PostAsync([FromForm]PostModel postModel)
         {
             var medias = postModel.MediaIds.Select(id => _ms.GetAsync(id).Result);
-
             var result = await _ps.CreateAsync(postModel.ToEntityMapper(medias));
             if(result.IsSuccess)
             {
@@ -95,6 +95,8 @@ namespace blog.Controllers
                 result.Content = updatedPost.Content;
                 result.ModifiedAt = DateTimeOffset.UtcNow;
                 result.HeaderImageId = updatedPost.HeaderImageId;
+                result.CreatedAt = result.CreatedAt;
+                result.Viewed = result.Viewed;
                 var deletedResult = await _ps.UpdateAsync(result);
 
                 if(deletedResult.IsSuccess)

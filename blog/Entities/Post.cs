@@ -10,7 +10,7 @@ namespace blog.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
         
-        public Guid HeaderImageId { get; set; }
+        public Guid? HeaderImageId { get; set; }
 
         [Required]
         [MaxLength(255)]
